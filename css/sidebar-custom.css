@@ -45,6 +45,10 @@
     background-color: #6d7fcc;
 }
 
+.inactive {
+    background-color: #6273ba;
+}
+
 #footer-note {
     font-size: 11px;
     text-align: center;
