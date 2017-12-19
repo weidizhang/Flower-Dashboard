@@ -8,13 +8,27 @@
 
     <title>Collapsible sidebar using Bootstrap 3</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="sidebar.css">
-    <link rel="stylesheet" href="sidebar-custom.css">
-    <link rel="stylesheet" href="board.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/sidebar-custom.css">
+    <link rel="stylesheet" href="css/board.css">
 
-    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script>
+
+    <script src="js/lib/jquery-3.2.1.min.js"></script>    
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/flower-main.js"></script>
+
+    <script>
+        if (window.module) {
+            module = window.module;
+        }
+    </script>
 </head>
 
 <body>
