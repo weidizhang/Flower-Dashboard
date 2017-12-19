@@ -3,9 +3,17 @@
 }
 
 #board-tv-chart {
-    height: 650px;
+    height: 600px;
 }
 
 table th, table td {
-    width: 16.67%;
+    width: 14.28%;
+}
+
+.table-total {
+    font-weight: bold;
+}
+
+.icon-separator {
+    margin-left: 10px;
 }

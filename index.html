@@ -22,12 +22,25 @@
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Overview</h3>
+                <h3>Your Portfolio</h3>
             </div>
 
             <ul class="list-unstyled components">
-                <div class="type-header">Cryptocurrency</div>
+                <div class="type-header">Overview</div>
+                <div data-asset="dashboard">
+                    <li class="active">
+                        <a href="#">
+                            <span class="asset-name">Total Portfolio</span>
+                            <span class="asset-change movement-up">
+                                <span class="asset-arrow">&#9650;</span>
+                                <span class="asset-percenage">3.00%</span>
+                            </span>
+                            <div class="asset-value">$2000.00</div>
+                        </a>
+                    </li>
+                </div>
 
+                <div class="type-header">Cryptocurrency</div>
                 <div data-asset="cryptocurrency:ETH">
                     <li class="active">
                         <a href="#">
@@ -80,11 +93,15 @@
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        Total Portfolio Value: $1000.00
+                        Ethereum
                     </div>
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
+                            <a href="#" id="manage">
+                                <span class="glyphicon glyphicon-wrench"></span>
+                            </a>
+                            <span class="icon-separator"></span>
                             <a href="#" id="settings">
                                 <span class="glyphicon glyphicon-cog"></span>
                             </a>
@@ -93,11 +110,12 @@
                 </div>
             </nav>
 
-            <h2 id="board-name">Ethereum</h2>
+            <h4>Transactions</h4>
 
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Type</th>
                         <th>Amount</th>
                         <th>Cost Per Share</th>
                         <th>Net Cost</th>
@@ -107,12 +125,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <td>1.00000000</td>
-                    <td>$400.00</td>
-                    <td>$400.00</td>
-                    <td>$800.00</td>
-                    <td>$400.00</td>
-                    <td>100.00%</td>
+                    <tr>
+                        <td>Buy</td>
+                        <td>1.00000000</td>
+                        <td>$400.00</td>
+                        <td>$400.00</td>
+                        <td>$800.00</td>
+                        <td>$400.00</td>
+                        <td>100.00%</td>
+                    </tr>
+                    <tr class="table-total">
+                        <td>Total</td>
+                        <td>1.00000000</td>
+                        <td>$400.00</td>
+                        <td>$400.00</td>
+                        <td>$800.00</td>
+                        <td>$400.00</td>
+                        <td>100.00%</td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -132,7 +162,6 @@
                         "allow_symbol_change": true,
                         "hideideas": true,
                         "studies": [
-                            "MACD@tv-basicstudies",
                             "MAExp@tv-basicstudies"
                         ]
                     });
