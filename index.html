@@ -15,9 +15,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
-
-
-
         <div class="wrapper">
             <!-- Sidebar Holder -->
             <nav id="sidebar">
@@ -26,21 +23,42 @@
                 </div>
 
                 <ul class="list-unstyled components">
-                    <p>Cryptocurrency</p>
-                    <li class="active">
-                        <a href="#homeSubmenu">Home</a>
-                    </li>
+                    <div class="type-header">Cryptocurrency</div>
 
-                    <p>Stock</p>
-                    <li class="active">
-                        <a href="#homeSubmenu">Home</a>
-                    </li>
+                    <div data-asset="cryptocurrency:ETH">
+                        <li class="active">
+                            <a href="#">
+                                <span class="asset-name">ETH</span>
+                                <span class="asset-change movement-up"><span class="asset-arrow">&#9650;</span> <span class="asset-percenage">5.00%</span></span>
+                                <div class="asset-value">$800.00</div>
+                            </a>
+                        </li>
+                    </div>
+                    <div data-asset="cryptocurrency:XRP">
+                        <li class="active">
+                            <a href="#">
+                                <span class="asset-name">XRP</span>
+                                <span class="asset-change movement-down"><span class="asset-arrow">&#9660;</span> <span class="asset-percenage">10.00%</span></span>
+                                <div class="asset-value">$0.80</div>
+                            </a>
+                        </li>
+                    </div>
+
+                    <div class="type-header">Stock</div>
+                    <div data-asset="stock:XLF">
+                        <li class="active">
+                            <a href="#">
+                                <span class="asset-name">XLF</span>
+                                <span class="asset-change movement-up"><span class="asset-arrow">&#9650;</span> <span class="asset-percenage">1.00%</span></span>
+                                <div class="asset-value">$28.00</div>
+                            </a>
+                        </li>
+                    </div>
                 </ul>
 
-                <ul class="list-unstyled CTAs">
-                    <li><a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a></li>
-                    <li><a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a></li>
-                </ul>
+                <div id="sidebar-footer">
+                    <div id="footer-note">Powered by <a href="#">Flower Dashboard</a></div>
+                </div>
             </nav>
 
             <!-- Page Content Holder -->
