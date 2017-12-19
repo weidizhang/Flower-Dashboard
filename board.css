@@ -1,0 +1,11 @@
+.container-fluid {
+    font-size: 20px;
+}
+
+#board-tv-chart {
+    height: 650px;
+}
+
+table th, table td {
+    width: 16.67%;
+}

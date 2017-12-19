@@ -1,110 +1,147 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Collapsible sidebar using Bootstrap 3</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="sidebar.css">
-        <link rel="stylesheet" href="sidebar-custom.css">
+    <title>Collapsible sidebar using Bootstrap 3</title>
 
-        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        <div class="wrapper">
-            <!-- Sidebar Holder -->
-            <nav id="sidebar">
-                <div class="sidebar-header">
-                    <h3>Overview</h3>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="sidebar-custom.css">
+    <link rel="stylesheet" href="board.css">
+
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Overview</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <div class="type-header">Cryptocurrency</div>
+
+                <div data-asset="cryptocurrency:ETH">
+                    <li class="active">
+                        <a href="#">
+                            <span class="asset-name">ETH</span>
+                            <span class="asset-change movement-up">
+                                <span class="asset-arrow">&#9650;</span>
+                                <span class="asset-percenage">5.00%</span>
+                            </span>
+                            <div class="asset-value">$800.00</div>
+                        </a>
+                    </li>
+                </div>
+                <div data-asset="cryptocurrency:XRP">
+                    <li class="active">
+                        <a href="#">
+                            <span class="asset-name">XRP</span>
+                            <span class="asset-change movement-down">
+                                <span class="asset-arrow">&#9660;</span>
+                                <span class="asset-percenage">10.00%</span>
+                            </span>
+                            <div class="asset-value">$0.80</div>
+                        </a>
+                    </li>
                 </div>
 
-                <ul class="list-unstyled components">
-                    <div class="type-header">Cryptocurrency</div>
+                <div class="type-header">Stock</div>
+                <div data-asset="stock:XLF">
+                    <li class="active">
+                        <a href="#">
+                            <span class="asset-name">XLF</span>
+                            <span class="asset-change movement-up">
+                                <span class="asset-arrow">&#9650;</span>
+                                <span class="asset-percenage">1.00%</span>
+                            </span>
+                            <div class="asset-value">$28.00</div>
+                        </a>
+                    </li>
+                </div>
+            </ul>
 
-                    <div data-asset="cryptocurrency:ETH">
-                        <li class="active">
-                            <a href="#">
-                                <span class="asset-name">ETH</span>
-                                <span class="asset-change movement-up"><span class="asset-arrow">&#9650;</span> <span class="asset-percenage">5.00%</span></span>
-                                <div class="asset-value">$800.00</div>
-                            </a>
-                        </li>
-                    </div>
-                    <div data-asset="cryptocurrency:XRP">
-                        <li class="active">
-                            <a href="#">
-                                <span class="asset-name">XRP</span>
-                                <span class="asset-change movement-down"><span class="asset-arrow">&#9660;</span> <span class="asset-percenage">10.00%</span></span>
-                                <div class="asset-value">$0.80</div>
-                            </a>
-                        </li>
+            <div id="sidebar-footer">
+                <div id="footer-note">Powered by
+                    <a href="#">Flower Dashboard</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content Holder -->
+        <div id="content">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        Total Portfolio Value: $1000.00
                     </div>
 
-                    <div class="type-header">Stock</div>
-                    <div data-asset="stock:XLF">
-                        <li class="active">
-                            <a href="#">
-                                <span class="asset-name">XLF</span>
-                                <span class="asset-change movement-up"><span class="asset-arrow">&#9650;</span> <span class="asset-percenage">1.00%</span></span>
-                                <div class="asset-value">$28.00</div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <a href="#" id="settings">
+                                <span class="glyphicon glyphicon-cog"></span>
                             </a>
-                        </li>
+                        </ul>
                     </div>
-                </ul>
-
-                <div id="sidebar-footer">
-                    <div id="footer-note">Powered by <a href="#">Flower Dashboard</a></div>
                 </div>
             </nav>
 
-            <!-- Page Content Holder -->
-            <div id="content">
-                <!--
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
+            <h2 id="board-name">Ethereum</h2>
 
-                        <div class="navbar-header">
-                            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-                                <i class="glyphicon glyphicon-align-left"></i>
-                                <span>Toggle Sidebar</span>
-                            </button>
-                        </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Amount</th>
+                        <th>Cost Per Share</th>
+                        <th>Net Cost</th>
+                        <th>Market Value</th>
+                        <th>Profit / Loss ($)</th>
+                        <th>Profit / Loss (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td>1.00000000</td>
+                    <td>$400.00</td>
+                    <td>$400.00</td>
+                    <td>$800.00</td>
+                    <td>$400.00</td>
+                    <td>100.00%</td>
+                </tbody>
+            </table>
 
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="#">Page</a></li>
-                                <li><a href="#">Page</a></li>
-                                <li><a href="#">Page</a></li>
-                                <li><a href="#">Page</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-                -->
-
-                <h2>Collapsible Sidebar Using Bootstrap 3</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                <div class="line"></div>
-
-                <h2>Lorem Ipsum Dolor</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                <div class="line"></div>
-
-                <h2>Lorem Ipsum Dolor</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                <div class="line"></div>
-
-                <h3>Lorem Ipsum Dolor</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div id="board-tv-chart">
+                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                <script type="text/javascript">
+                    new TradingView.widget({
+                        "autosize": true,
+                        "symbol": "COINBASE:ETHUSD",
+                        "interval": "30",
+                        "timezone": "Etc/UTC",
+                        "theme": "Light",
+                        "style": "1",
+                        "locale": "en",
+                        "enable_publishing": false,
+                        "hide_side_toolbar": false,
+                        "allow_symbol_change": true,
+                        "hideideas": true,
+                        "studies": [
+                            "MACD@tv-basicstudies",
+                            "MAExp@tv-basicstudies"
+                        ]
+                    });
+                </script>
             </div>
+
+            <!-- <div class="line"></div> -->
         </div>
-    </body>
+    </div>
+</body>
+
 </html>
