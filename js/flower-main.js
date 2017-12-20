@@ -14,13 +14,15 @@ $(document).ready(function() {
 function loadPortfolio() {
     $baseTab = $('[data-asset="dashboard:Total"]');
 
-    $.each(portfolioData, function(assetName, data) {
+    $.each(portfolioData, function(asset, data) {
+        const [assetType, assetName] = asset.split(':');
+
         $newTab = $baseTab.clone();
 
-        $newTab.attr('data-asset', data.type + ':' + assetName);
+        $newTab.attr('data-asset', assetType + ':' + assetName);
         $newTab.find('.asset-name').text(assetName);
 
-        $('#' + data.type).append($newTab);
+        $('#' + assetType).append($newTab);
     });
 }
 
