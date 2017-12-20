@@ -1,3 +1,7 @@
+/*
+ * @author Weidi Zhang
+ */
+
 $(document).ready(function() {
     $('[data-asset]').click(assetTabClick);
 })
@@ -38,4 +42,15 @@ function setHeaderText(text) {
 function setActiveTab($tab) {
     $('[data-asset] li').attr('class', 'inactive');
     $tab.children('li').attr('class', 'active');
+}
+
+function setTvChartSymbol(symbol) {
+    const chartUrl = new URL($('iframe').attr('src'));
+
+    const newSymbol = encodeURIComponent(symbol);
+    const newUrlSearch = '?symbol=' + newSymbol + chartUrl.search.substr(chartUrl.search.indexOf('&'));
+
+    const newChartUrl = chartUrl.origin + chartUrl.pathname + newUrlSearch;
+    
+    $('iframe').attr('src', newChartUrl);
 }

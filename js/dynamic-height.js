@@ -1,3 +1,7 @@
+/*
+ * @author Weidi Zhang
+ */
+
 const pageMarginBottom = 40;
 
 $(document).ready(function() {
