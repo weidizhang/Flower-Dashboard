@@ -27,10 +27,8 @@ function flipToOverview() {
 }
 
 function flipToAsset(type, name) {
-    prettyType = type[0].toUpperCase() + type.substr(1);
+    const prettyType = type[0].toUpperCase() + type.substr(1);
     setHeaderText(prettyType + ': ' + name);
-
-
 }
 
 function setHeaderText(text) {

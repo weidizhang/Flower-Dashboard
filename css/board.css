@@ -2,12 +2,16 @@
     font-size: 20px;
 }
 
-#board-tv-chart {
-    height: 600px;
+#board-tv-chart, #tv-chart {
+    height: 100%;
 }
 
 table th, table td {
     width: 14.28%;
+}
+
+.table {
+    margin-bottom: 0px !important;
 }
 
 .table-total {
@@ -16,4 +20,25 @@ table th, table td {
 
 .icon-separator {
     margin-left: 10px;
+}
+
+.nav-pills li a {
+    border-radius: 4px 4px 0px 0px;
+    border: 1px solid #e7e7e7;
+    border-bottom: none;
+}
+
+.nav-pills a {
+    background-color: #eee;
+}
+
+.nav-pills .active a {
+    background-color: #fff !important;
+    color: black !important;
+}
+
+.tab-content {
+    padding: 15px;
+
+    border: 1px solid #e7e7e7;
 }

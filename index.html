@@ -1,190 +1,197 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Flower Dashboard</title>
 
-    <title>Flower Dashboard</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/sidebar.css">
+        <link rel="stylesheet" href="css/sidebar-custom.css">
+        <link rel="stylesheet" href="css/board.css">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/sidebar.css">
-    <link rel="stylesheet" href="css/sidebar-custom.css">
-    <link rel="stylesheet" href="css/board.css">
+        <script>
+            if (typeof module === 'object') {
+                window.module = module;
+                module = undefined;
+            }
+        </script>
 
-    <script>
-        if (typeof module === 'object') {
-            window.module = module;
-            module = undefined;
-        }
-    </script>
+        <script src="js/lib/jquery-3.2.1.min.js"></script>
+        <script src="js/lib/bootstrap.min.js"></script>
+        <script src="js/flower-main.js"></script>
+        <script src="js/dynamic-height.js"></script>
 
-    <script src="js/lib/jquery-3.2.1.min.js"></script>    
-    <script src="js/lib/bootstrap.min.js"></script>
-    <script src="js/flower-main.js"></script>
-
-    <script>
-        if (window.module) {
-            module = window.module;
-        }
-    </script>
-</head>
-
-<body>
-    <div class="wrapper">
-        <!-- Sidebar Holder -->
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>Your Portfolio</h3>
-            </div>
-
-            <ul class="list-unstyled components">
-                <div class="type-header">Overview</div>
-                <div data-asset="dashboard:Total">
-                    <li class="inactive">
-                        <a href="#">
-                            <span class="asset-name">Total Portfolio</span>
-                            <span class="asset-change movement-up">
-                                <span class="asset-arrow">&#9650;</span>
-                                <span class="asset-percenage">3.00%</span>
-                            </span>
-                            <div class="asset-value">$2000.00</div>
-                        </a>
-                    </li>
+        <script>
+            if (window.module) {
+                module = window.module;
+            }
+        </script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Your Portfolio</h3>
                 </div>
 
-                <div class="type-header">Cryptocurrency</div>
-                <div data-asset="cryptocurrency:ETH">
-                    <li class="active">
-                        <a href="#">
-                            <span class="asset-name">ETH</span>
-                            <span class="asset-change movement-up">
-                                <span class="asset-arrow">&#9650;</span>
-                                <span class="asset-percenage">5.00%</span>
-                            </span>
-                            <div class="asset-value">$800.00</div>
-                        </a>
-                    </li>
-                </div>
-                <div data-asset="cryptocurrency:XRP">
-                    <li class="inactive">
-                        <a href="#">
-                            <span class="asset-name">XRP</span>
-                            <span class="asset-change movement-down">
-                                <span class="asset-arrow">&#9660;</span>
-                                <span class="asset-percenage">10.00%</span>
-                            </span>
-                            <div class="asset-value">$0.80</div>
-                        </a>
-                    </li>
-                </div>
-
-                <div class="type-header">Stock</div>
-                <div data-asset="stock:XLF">
-                    <li class="inactive">
-                        <a href="#">
-                            <span class="asset-name">XLF</span>
-                            <span class="asset-change movement-up">
-                                <span class="asset-arrow">&#9650;</span>
-                                <span class="asset-percenage">1.00%</span>
-                            </span>
-                            <div class="asset-value">$28.00</div>
-                        </a>
-                    </li>
-                </div>
-            </ul>
-
-            <div id="sidebar-footer">
-                <div id="footer-note">Powered by
-                    <a href="#">Flower Dashboard</a>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Page Content Holder -->
-        <div id="content">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        Cryptocurrency: ETH
+                <ul class="list-unstyled components">
+                    <div class="type-header">Overview</div>
+                    <div data-asset="dashboard:Total">
+                        <li class="inactive">
+                            <a href="#">
+                                <span class="asset-name">Total Portfolio</span>
+                                <span class="asset-change movement-up">
+                                    <span class="asset-arrow">&#9650;</span>
+                                    <span class="asset-percenage">3.00%</span>
+                                </span>
+                                <div class="asset-value">$2000.00</div>
+                            </a>
+                        </li>
                     </div>
 
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                            <a href="#" id="manage">
-                                <span class="glyphicon glyphicon-wrench"></span>
+                    <div class="type-header">Cryptocurrency</div>
+                    <div data-asset="cryptocurrency:ETH">
+                        <li class="active">
+                            <a href="#">
+                                <span class="asset-name">ETH</span>
+                                <span class="asset-change movement-up">
+                                    <span class="asset-arrow">&#9650;</span>
+                                    <span class="asset-percenage">5.00%</span>
+                                </span>
+                                <div class="asset-value">$800.00</div>
                             </a>
-                            <span class="icon-separator"></span>
-                            <a href="#" id="settings">
-                                <span class="glyphicon glyphicon-cog"></span>
+                        </li>
+                    </div>
+                    <div data-asset="cryptocurrency:XRP">
+                        <li class="inactive">
+                            <a href="#">
+                                <span class="asset-name">XRP</span>
+                                <span class="asset-change movement-down">
+                                    <span class="asset-arrow">&#9660;</span>
+                                    <span class="asset-percenage">10.00%</span>
+                                </span>
+                                <div class="asset-value">$0.80</div>
                             </a>
-                        </ul>
+                        </li>
+                    </div>
+
+                    <div class="type-header">Stock</div>
+                    <div data-asset="stock:XLF">
+                        <li class="inactive">
+                            <a href="#">
+                                <span class="asset-name">XLF</span>
+                                <span class="asset-change movement-up">
+                                    <span class="asset-arrow">&#9650;</span>
+                                    <span class="asset-percenage">1.00%</span>
+                                </span>
+                                <div class="asset-value">$28.00</div>
+                            </a>
+                        </li>
+                    </div>
+                </ul>
+
+                <div id="sidebar-footer">
+                    <div id="footer-note">Powered by
+                        <a href="#">Flower Dashboard</a>
                     </div>
                 </div>
             </nav>
 
-            <h4>Transactions</h4>
+            <!-- Page Content Holder -->
+            <div id="content">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            Cryptocurrency: ETH
+                        </div>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Amount</th>
-                        <th>Cost Per Share</th>
-                        <th>Net Cost</th>
-                        <th>Market Value</th>
-                        <th>Profit / Loss ($)</th>
-                        <th>Profit / Loss (%)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Buy</td>
-                        <td>1.00000000</td>
-                        <td>$400.00</td>
-                        <td>$400.00</td>
-                        <td>$800.00</td>
-                        <td>$400.00</td>
-                        <td>100.00%</td>
-                    </tr>
-                    <tr class="table-total">
-                        <td>Total</td>
-                        <td>1.00000000</td>
-                        <td>$400.00</td>
-                        <td>$400.00</td>
-                        <td>$800.00</td>
-                        <td>$400.00</td>
-                        <td>100.00%</td>
-                    </tr>
-                </tbody>
-            </table>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <a href="#" id="manage">
+                                    <span class="glyphicon glyphicon-wrench"></span>
+                                </a>
+                                <span class="icon-separator"></span>
+                                <a href="#" id="settings">
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
 
-            <div id="board-tv-chart">
-                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-                <script type="text/javascript">
-                    new TradingView.widget({
-                        "autosize": true,
-                        "symbol": "COINBASE:ETHUSD",
-                        "interval": "30",
-                        "timezone": "Etc/UTC",
-                        "theme": "Light",
-                        "style": "1",
-                        "locale": "en",
-                        "enable_publishing": false,
-                        "hide_side_toolbar": false,
-                        "allow_symbol_change": true,
-                        "hideideas": true,
-                        "studies": [
-                            "MAExp@tv-basicstudies"
-                        ]
-                    });
-                </script>
+                <ul class="nav nav-pills">
+                    <li class="active">
+                        <a href="#transactions" data-toggle="tab">Transactions</a>
+                    </li>
+                    <li>
+                        <a href="#tv-chart" data-toggle="tab">Chart</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content clearfix">
+                    <div class="tab-pane active" id="transactions">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Cost Per Share</th>
+                                    <th>Net Cost</th>
+                                    <th>Market Value</th>
+                                    <th>Profit / Loss ($)</th>
+                                    <th>Profit / Loss (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Buy</td>
+                                    <td>1.00000000</td>
+                                    <td>$400.00</td>
+                                    <td>$400.00</td>
+                                    <td>$800.00</td>
+                                    <td>$400.00</td>
+                                    <td>100.00%</td>
+                                </tr>
+                                <tr class="table-total">
+                                    <td>Total</td>
+                                    <td>1.00000000</td>
+                                    <td>$400.00</td>
+                                    <td>$400.00</td>
+                                    <td>$800.00</td>
+                                    <td>$400.00</td>
+                                    <td>100.00%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="tv-chart">
+                        <div id="board-tv-chart">
+                            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                            <script type="text/javascript">
+                                new TradingView.widget({
+                                    "autosize": true,
+                                    "symbol": "COINBASE:ETHUSD",
+                                    "interval": "30",
+                                    "timezone": "Etc/UTC",
+                                    "theme": "Light",
+                                    "style": "1",
+                                    "locale": "en",
+                                    "enable_publishing": false,
+                                    "hide_side_toolbar": false,
+                                    "allow_symbol_change": true,
+                                    "hideideas": true,
+                                    "studies": [
+                                        "MAExp@tv-basicstudies"
+                                    ]
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!-- <div class="line"></div> -->
         </div>
-    </div>
-</body>
-
+    </body>
 </html>
