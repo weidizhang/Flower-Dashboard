@@ -6,12 +6,12 @@ const arrowUp = '&#9650;';
 const arrowDown = '&#9660;';
 
 $(document).ready(function() {
-    loadPortfolio();
+    loadPortfolioTabs();
 
     $('[data-asset]').click(assetTabClick);
 })
 
-function loadPortfolio() {
+function loadPortfolioTabs() {
     $baseTab = $('[data-asset="dashboard:Total"]');
 
     $.each(portfolioData, function(asset, data) {
@@ -20,6 +20,7 @@ function loadPortfolio() {
         $newTab = $baseTab.clone();
 
         $newTab.attr('data-asset', assetType + ':' + assetName);
+        $newTab.find('li').attr('class', 'inactive');
         $newTab.find('.asset-name').text(assetName);
 
         $('#' + assetType).append($newTab);
@@ -53,6 +54,9 @@ function flipToOverview() {
 function flipToAsset(type, name) {
     const prettyType = type[0].toUpperCase() + type.substr(1);
     setHeaderText(prettyType + ': ' + name);
+
+    tvSymbol = portfolioData[type + ':' + name].tv_chart;
+    setTvChartSymbol(tvSymbol);
 }
 
 function setHeaderText(text) {
