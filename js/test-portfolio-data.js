@@ -4,8 +4,8 @@
 
 const portfolioData = {
     'cryptocurrency:ETH': {
-        price_source: 'Coinbase',
         tv_chart: 'COINBASE:ETHUSD',
+        cmc_name: 'ethereum',
         transactions: [
             {
                 type: 'Buy',
@@ -15,8 +15,8 @@ const portfolioData = {
         ]
     },
     'cryptocurrency:NEO': {
-        price_source: 'Bittrex',
         tv_chart: 'BITTREX:NEOUSDT',
+        cmc_name: 'neo',
         transactions: [
             {
                 type: 'Buy',
@@ -31,7 +31,6 @@ const portfolioData = {
         ]
     },
     'stock:XLF': {
-        price_source: '',
         tv_chart: 'XLF',
         transactions: [
             {

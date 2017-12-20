@@ -5,8 +5,11 @@
 const arrowUp = '&#9650;';
 const arrowDown = '&#9660;';
 
-$(document).ready(function() {
+$(document).ready(() => {
     loadPortfolioTabs();
+
+    updatePrices();
+    setInterval(updatePrices, 60 * 1000); // to do: customizable time interval
 
     $('[data-asset]').click(assetTabClick);
 })
@@ -14,16 +17,49 @@ $(document).ready(function() {
 function loadPortfolioTabs() {
     $baseTab = $('[data-asset="dashboard:Total"]');
 
-    $.each(portfolioData, function(asset, data) {
+    $.each(portfolioData, (asset, data) => {
         const [assetType, assetName] = asset.split(':');
 
         $newTab = $baseTab.clone();
 
-        $newTab.attr('data-asset', assetType + ':' + assetName);
+        $newTab.attr('data-asset', asset);
         $newTab.find('li').attr('class', 'inactive');
         $newTab.find('.asset-name').text(assetName);
 
         $('#' + assetType).append($newTab);
+    });
+}
+
+function updatePrices() { // increase efficiency/merge redundant code from this?
+    $.each(portfolioData, (asset, data) => {
+        const [assetType, assetName] = asset.split(':');
+
+        let priceObj;
+        if (assetType == 'cryptocurrency') {
+            priceObj = new CoinMarketCap(data.cmc_name);
+        }
+        else if (assetType == 'stock') {
+            //const priceObj = new GoogleFinance(assetName);
+        }
+
+        if (priceObj !== undefined) {
+            const priceDataPromise = getPriceData(priceObj);
+            priceDataPromise.then((data) => {
+                const $assetTab = $('[data-asset="' + asset + '"]');
+                
+                $assetTab.find('.asset-value').text('$' + data.price);
+
+                percentChange = parseFloat(data.percent);
+                $assetArrow = $assetTab.find('asset-arrow');
+                $assetArrow.html(arrowUp);
+                if (percentChange < 0) {
+                    $assetArrow.html(arrowDown);
+                    percentChange *= -1;
+                }
+
+                $assetTab.find('.asset-percentage').text(percentChange.toFixed(2) + '%');
+            });
+        }
     });
 }
 
