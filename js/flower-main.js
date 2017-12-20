@@ -2,9 +2,27 @@
  * @author Weidi Zhang
  */
 
+const arrowUp = '&#9650;';
+const arrowDown = '&#9660;';
+
 $(document).ready(function() {
+    loadPortfolio();
+
     $('[data-asset]').click(assetTabClick);
 })
+
+function loadPortfolio() {
+    $baseTab = $('[data-asset="dashboard:Total"]');
+
+    $.each(portfolioData, function(assetName, data) {
+        $newTab = $baseTab.clone();
+
+        $newTab.attr('data-asset', data.type + ':' + assetName);
+        $newTab.find('.asset-name').text(assetName);
+
+        $('#' + data.type).append($newTab);
+    });
+}
 
 function assetTabClick() {
     setActiveTab($(this));

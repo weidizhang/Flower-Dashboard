@@ -21,9 +21,9 @@
 
         <script src="js/lib/jquery-3.2.1.min.js"></script>
         <script src="js/lib/bootstrap.min.js"></script>
+        <script src="js/test-portfolio-data.js"></script>
         <script src="js/flower-main.js"></script>
         <script src="js/dynamic-height.js"></script>
-        <script src="js/test-portfolio-data.js"></script>
 
         <script>
             if (window.module) {
@@ -41,7 +41,7 @@
                 <ul class="list-unstyled components">
                     <div class="type-header">Overview</div>
                     <div data-asset="dashboard:Total">
-                        <li class="inactive">
+                        <li class="active">
                             <a href="#">
                                 <span class="asset-name">Total Portfolio</span>
                                 <span class="asset-change movement-up">
@@ -54,44 +54,10 @@
                     </div>
 
                     <div class="type-header">Cryptocurrency</div>
-                    <div data-asset="cryptocurrency:ETH">
-                        <li class="active">
-                            <a href="#">
-                                <span class="asset-name">ETH</span>
-                                <span class="asset-change movement-up">
-                                    <span class="asset-arrow">&#9650;</span>
-                                    <span class="asset-percenage">5.00%</span>
-                                </span>
-                                <div class="asset-value">$800.00</div>
-                            </a>
-                        </li>
-                    </div>
-                    <div data-asset="cryptocurrency:XRP">
-                        <li class="inactive">
-                            <a href="#">
-                                <span class="asset-name">XRP</span>
-                                <span class="asset-change movement-down">
-                                    <span class="asset-arrow">&#9660;</span>
-                                    <span class="asset-percenage">10.00%</span>
-                                </span>
-                                <div class="asset-value">$0.80</div>
-                            </a>
-                        </li>
-                    </div>
+                    <div id="cryptocurrency"></div>
 
                     <div class="type-header">Stock</div>
-                    <div data-asset="stock:XLF">
-                        <li class="inactive">
-                            <a href="#">
-                                <span class="asset-name">XLF</span>
-                                <span class="asset-change movement-up">
-                                    <span class="asset-arrow">&#9650;</span>
-                                    <span class="asset-percenage">1.00%</span>
-                                </span>
-                                <div class="asset-value">$28.00</div>
-                            </a>
-                        </li>
-                    </div>
+                    <div id="stock"></div>
                 </ul>
 
                 <div id="sidebar-footer">
