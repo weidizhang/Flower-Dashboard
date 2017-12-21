@@ -59,3 +59,25 @@
 #footer-note a {
     font-weight: bold;
 }
+
+#sidebar-refresh-footer {
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    height: 40px;
+}
+
+.refresh-bar {
+    width: 95%;
+    margin: 0 auto;
+    height: 10px;
+}
+
+.refresh-bar-inside {
+    width: 100%;
+}
+
+.refresh-info {
+    text-align: center;
+    font-size: 11px;
+}

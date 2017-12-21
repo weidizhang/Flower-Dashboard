@@ -5,11 +5,13 @@
 const arrowUp = '&#9650;';
 const arrowDown = '&#9660;';
 
+let timeBeforePriceUpdate = 0;
+
 $(document).ready(() => {
     loadPortfolioTabs();
 
-    updatePrices();
-    setInterval(updatePrices, 60 * 1000); // to do: customizable time interval
+    priceRefreshTicker();
+    setInterval(priceRefreshTicker, 1000);
 
     $('[data-asset]').click(assetTabClick);
 })
@@ -61,6 +63,20 @@ function updatePrices() { // increase efficiency/merge redundant code from this?
             });
         }
     });
+}
+
+function priceRefreshTicker() {
+    timeBeforePriceUpdate -= 1;
+
+    if (timeBeforePriceUpdate <= 0) {
+        updatePrices();
+        timeBeforePriceUpdate = settingsData.price_update_interval;
+    }
+
+    $('.refresh-time').text(timeBeforePriceUpdate + 's');
+
+    const progressBarWidth = timeBeforePriceUpdate / settingsData.price_update_interval * 100;
+    $('.refresh-bar-inside').width(progressBarWidth + '%');
 }
 
 function assetTabClick() {
