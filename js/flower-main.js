@@ -5,13 +5,13 @@
 const arrowUp = '&#9650;';
 const arrowDown = '&#9660;';
 
-let timeBeforePriceUpdate = 0;
+let timeBeforePriceUpdateDS = 0; // DS = Decisecond
 
 $(document).ready(() => {
     loadPortfolioTabs();
 
     priceRefreshTicker();
-    setInterval(priceRefreshTicker, 1000);
+    setInterval(priceRefreshTicker, 100);
 
     $('[data-asset]').click(assetTabClick);
 })
@@ -66,16 +66,17 @@ function updatePrices() { // increase efficiency/merge redundant code from this?
 }
 
 function priceRefreshTicker() {
-    timeBeforePriceUpdate -= 1;
+    timeBeforePriceUpdateDS -= 1;
 
-    if (timeBeforePriceUpdate <= 0) {
+    if (timeBeforePriceUpdateDS <= 0) {
         updatePrices();
-        timeBeforePriceUpdate = settingsData.price_update_interval;
+        timeBeforePriceUpdateDS = settingsData.price_update_interval * 10;
     }
 
-    $('.refresh-time').text(timeBeforePriceUpdate + 's');
+    timeBeforePriceUpdateSecs = (timeBeforePriceUpdateDS / 10).toFixed(0);
+    $('.refresh-time').text(timeBeforePriceUpdateSecs  + 's');
 
-    const progressBarWidth = timeBeforePriceUpdate / settingsData.price_update_interval * 100;
+    const progressBarWidth = (timeBeforePriceUpdateDS / (settingsData.price_update_interval * 10)) * 100;
     $('.refresh-bar-inside').width(progressBarWidth + '%');
 }
 
