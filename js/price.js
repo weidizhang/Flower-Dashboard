@@ -4,7 +4,12 @@
 
 async function getPriceData(priceObj) {
     const response = await fetch(priceObj.apiEndpoint());
-    const jsonData = await response.json();
+    let responseText = await response.text();
+
+    if (responseText.startsWith('\n// ')) {
+        responseText = responseText.substr('\n// '.length);
+    }
+    const jsonData = JSON.parse(responseText);
 
     return {
         price: priceObj.getPrice(jsonData),

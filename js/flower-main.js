@@ -39,7 +39,7 @@ function updatePrices() { // increase efficiency/merge redundant code from this?
             priceObj = new CoinMarketCap(data.cmc_name);
         }
         else if (assetType == 'stock') {
-            //const priceObj = new GoogleFinance(assetName);
+            priceObj = new GoogleFinance(assetName);
         }
 
         if (priceObj !== undefined) {
