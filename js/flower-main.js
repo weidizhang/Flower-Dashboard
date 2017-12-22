@@ -51,14 +51,18 @@ function updatePrices() { // increase efficiency/merge redundant code from this?
                 
                 $assetTab.find('.asset-value').text('$' + data.price);
 
-                percentChange = parseFloat(data.percent);
-                $assetArrow = $assetTab.find('asset-arrow');
+                let percentChange = parseFloat(data.percent);
+                let movementClass = 'movement-up';
+
+                $assetArrow = $assetTab.find('.asset-arrow');
                 $assetArrow.html(arrowUp);
                 if (percentChange < 0) {
                     $assetArrow.html(arrowDown);
                     percentChange *= -1;
+                    movementClass = 'movement-down';
                 }
 
+                $assetTab.find('.asset-change').removeClass('movement-up').removeClass('movement-down').addClass(movementClass);
                 $assetTab.find('.asset-percentage').text(percentChange.toFixed(2) + '%');
             });
         }
