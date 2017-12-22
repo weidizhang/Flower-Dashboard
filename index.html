@@ -88,6 +88,10 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
+                            <a href="#" id="add-tx">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                            <span class="icon-separator"></span>
                             <a href="#" id="manage">
                                 <span class="glyphicon glyphicon-wrench"></span>
                             </a>
@@ -119,28 +123,30 @@
                                 <th>Cost Per Share</th>
                                 <th>Net Cost</th>
                                 <th>Market Value</th>
-                                <th>Profit / Loss ($)</th>
-                                <th>Profit / Loss (%)</th>
+                                <th>Profit / Loss</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Buy</td>
-                                <td>1.00000000</td>
-                                <td>$400.00</td>
-                                <td>$400.00</td>
-                                <td>$800.00</td>
-                                <td>$400.00</td>
-                                <td>100.00%</td>
+                            <tr id="tx-template">
+                                <td class="tx-type">Buy</td>
+                                <td class="tx-amt">1.00000000</td>
+                                <td class="tx-cps">$400.00</td>
+                                <td class="tx-cost">$400.00</td>
+                                <td class="tx-value">$800.00</td>
+                                <td class="tx-pl">$400.00 (100.00%)</td>
+                                <td>
+                                    <a href="#"><span class="glyphicon glyphicon-remove remove-tx"></span></a>
+                                </td>
                             </tr>
-                            <tr class="table-total">
+                            <tr id="table-total">
                                 <td>Total</td>
-                                <td>1.00000000</td>
-                                <td>$400.00</td>
-                                <td>$400.00</td>
-                                <td>$800.00</td>
-                                <td>$400.00</td>
-                                <td>100.00%</td>
+                                <td id="total-amt">1.00000000</td>
+                                <td id="avg-cps">$400.00</td>
+                                <td id="total-cost">$400.00</td>
+                                <td id="total-value">$800.00</td>
+                                <td id="avg-pl">$400.00 (100.00%)</td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>

@@ -28,10 +28,7 @@ class CoinMarketCap {
 
     getPrice(jsonData) {
         const priceUsd = parseFloat(jsonData[0].price_usd);
-        if (priceUsd < 1) {
-            return priceUsd.toFixed(4);
-        }
-        return priceUsd.toFixed(2);
+        return roundDollarValue(priceUsd);
     }
 
     getPercentChange(jsonData) {

@@ -7,6 +7,8 @@ const arrowDown = '&#9660;';
 
 let timeBeforePriceUpdateDS = 0; // DS = Decisecond
 
+let assetPrices = {};
+
 $(document).ready(() => {
     loadPortfolioTabs();
 
@@ -64,6 +66,8 @@ function updatePrices() { // increase efficiency/merge redundant code from this?
 
                 $assetTab.find('.asset-change').removeClass('movement-up').removeClass('movement-down').addClass(movementClass);
                 $assetTab.find('.asset-percentage').text(percentChange.toFixed(2) + '%');
+
+                assetPrices[asset] = data.price;
             });
         }
     });
@@ -112,8 +116,44 @@ function flipToAsset(type, name) {
     const prettyType = type[0].toUpperCase() + type.substr(1);
     setHeaderText(prettyType + ': ' + name);
 
-    tvSymbol = portfolioData[type + ':' + name].tv_chart;
+    const tvSymbol = portfolioData[type + ':' + name].tv_chart;
     setTvChartSymbol(tvSymbol);
+
+    loadTransactions(type, name);
+}
+
+function loadTransactions(type, name) {
+    const txData = portfolioData[type + ':' + name].transactions;
+    const $baseTx = $('#tx-template');
+
+    $('.asset-tx').remove();
+
+    $.each(txData, (index, tx) => {
+        const $newTx = $baseTx.clone();
+
+        $newTx.removeAttr('id').addClass('asset-tx');
+        $newTx.attr('data-txindex', index);
+
+        const formattedAmt = (type == 'cryptocurrency') ? tx.amt.toFixed(8) : tx.amt.toFixed(3);
+
+        const cost = tx.amt * tx.cost_per;
+        const value = tx.amt * assetPrices[type + ':' + name];
+        const profitLoss = value - cost;
+
+        $newTx.find('.tx-type').text(tx.type);
+        $newTx.find('.tx-amt').text(formattedAmt);
+        $newTx.find('.tx-cps').text('$' + roundDollarValue(tx.cost_per));
+        $newTx.find('.tx-cost').text('$' + roundDollarValue(cost));
+        $newTx.find('.tx-value').text('$' + roundDollarValue(value));
+        $newTx.find('.tx-pl').text('$' + roundDollarValue(profitLoss) + ' (' + calcPercentPL(value, cost) + ')');
+
+        $('#table-total').before($newTx);
+    });
+}
+
+function calcPercentPL(value, cost) {
+    const pl = ((value - cost) / cost) * 100;
+    return pl.toFixed(2) + '%';
 }
 
 function setHeaderText(text) {
@@ -134,4 +174,11 @@ function setTvChartSymbol(symbol) {
     const newChartUrl = chartUrl.origin + chartUrl.pathname + newUrlSearch;
     
     $('iframe').attr('src', newChartUrl);
+}
+
+function roundDollarValue(value) {
+    if (value < 1) {
+        return value.toFixed(4);
+    }
+    return value.toFixed(2);
 }

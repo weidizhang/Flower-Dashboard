@@ -18,7 +18,7 @@ table th, table td {
     margin-bottom: 0px !important;
 }
 
-.table-total {
+#table-total {
     font-weight: bold;
 }
 
@@ -45,4 +45,12 @@ table th, table td {
     padding: 15px;
 
     border: 1px solid #e7e7e7;
+}
+
+.remove-tx {
+    color: #ff3f3f;
+}
+
+#tx-template {
+    display: none;
 }
