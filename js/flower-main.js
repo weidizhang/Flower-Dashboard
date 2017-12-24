@@ -122,11 +122,14 @@ function flipToAsset(type, name) {
     loadTransactions(type, name);
 }
 
-function loadTransactions(type, name) {
+function loadTransactions(type, name) { // to-do: reload current tx's when price updates.
     const txData = portfolioData[type + ':' + name].transactions;
+    const assetPrice = assetPrices[type + ':' + name];
     const $baseTx = $('#tx-template');
 
     $('.asset-tx').remove();
+
+    let totalAmt = totalCost = 0;
 
     $.each(txData, (index, tx) => {
         const $newTx = $baseTx.clone();
@@ -134,10 +137,10 @@ function loadTransactions(type, name) {
         $newTx.removeAttr('id').addClass('asset-tx');
         $newTx.attr('data-txindex', index);
 
-        const formattedAmt = (type == 'cryptocurrency') ? tx.amt.toFixed(8) : tx.amt.toFixed(3);
+        const formattedAmt = formatHoldingAmt(type, tx.amt);
 
         const cost = tx.amt * tx.cost_per;
-        const value = tx.amt * assetPrices[type + ':' + name];
+        const value = tx.amt * assetPrice;
         const profitLoss = value - cost;
 
         $newTx.find('.tx-type').text(tx.type);
@@ -148,12 +151,37 @@ function loadTransactions(type, name) {
         $newTx.find('.tx-pl').text('$' + roundDollarValue(profitLoss) + ' (' + calcPercentPL(value, cost) + ')');
 
         $('#table-total').before($newTx);
+
+        if (tx.type == 'Buy') {
+            totalAmt += tx.amt;
+            totalCost += cost;
+        }
+        else if (tx.type == 'Sell') {
+            totalAmt -= tx.amt;
+            totalCost -= cost;
+        }
     });
+
+    const avgCps = totalCost / totalAmt;
+    const totalValue = totalAmt * assetPrice;
+    const avgPL = totalValue - totalCost;
+
+    $('#total-amt').text(totalAmt);
+    $('#avg-cps').text('$' + roundDollarValue(avgCps));
+    $('#total-cost').text('$' + roundDollarValue(totalCost));
+    $('#total-value').text('$' + roundDollarValue(totalValue));
+    $('#avg-pl').text('$' + roundDollarValue(avgPL) + ' (' + calcPercentPL(totalValue, totalCost) + ')');
+
+    console.log(totalCost);
 }
 
 function calcPercentPL(value, cost) {
     const pl = ((value - cost) / cost) * 100;
     return pl.toFixed(2) + '%';
+}
+
+function formatHoldingAmt(type, amt) {
+    return (type == 'cryptocurrency') ? amt.toFixed(8) : amt.toFixed(3);
 }
 
 function setHeaderText(text) {
