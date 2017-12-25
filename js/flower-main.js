@@ -137,7 +137,20 @@ function flipToOverview() {
     $('.tab-content').hide();
     $('#overview').show();
 
-    setHeaderText('Overview');
+    const holdingData = getTotalHoldingData();
+    const totalCost = sumKeyName(holdingData, 'cost');
+    const totalValue = sumKeyName(holdingData, 'value');
+    
+    setHeaderText('Overview - Cost: ' + totalCost + ' - Value: ' + totalValue);
+}
+
+function sumKeyName(data, key) {
+    let sum = 0;
+    $.each(data, (index, obj) => {
+        sum += obj[key];
+    });
+
+    return sum;
 }
 
 function getTotalHoldingData() { // to-do: cost
@@ -149,14 +162,19 @@ function getTotalHoldingData() { // to-do: cost
             cost: 0
         };
 
-        $.each(data.transactions, (txData) => {
-            const txAmt = txData.amt;
+        $.each(data.transactions, (index, txData) => {
+            let txAmt = txData.amt;
+            let txCost = txData.cost_per * txAmt;
             if (txData.type == 'Sell') {
                 txAmt *= -1;
+                txCost *= -1;
             }
 
             holdingData[asset].amt += txAmt;
+            holdingData[asset].cost += txCost;
         });
+
+        holdingData[asset].value = holdingData[asset].amt * assetPrices[asset];
     });
 
     return holdingData;
