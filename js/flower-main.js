@@ -23,23 +23,21 @@ $(document).ready(() => {
 
 function createHoldingsChart() {
     const ctx = $('#holdings-chart')[0].getContext('2d');
-    data = {
-        datasets: [{
-            data: [10, 20, 30]
-        }],
-    
-        // These labels appear in the legend and in the tooltips when hovering different arcs
-        labels: [
-            'Red',
-            'Yellow',
-            'Blue'
-        ]
-    };
     holdingsChart = new Chart(ctx, {
         type: 'doughnut',
-        data: data,
+        data: {
+            datasets: [{ data: [] }],
+            labels: []
+        },
         options: {}
     });
+}
+
+function updateHoldingsChart(labels, data) {
+    holdingsChart.data.labels = labels;
+    holdingsChart.data.datasets[0].data = data;
+
+    holdingsChart.update();
 }
 
 function loadPortfolioTabs() {
@@ -140,8 +138,28 @@ function flipToOverview() {
     const holdingData = getTotalHoldingData();
     const totalCost = sumKeyName(holdingData, 'cost');
     const totalValue = sumKeyName(holdingData, 'value');
-    
+
     setHeaderText('Overview - Cost: ' + totalCost + ' - Value: ' + totalValue);
+
+    const chartData = makeDataChartFriendly(holdingData);
+    updateHoldingsChart(chartData.labels, chartData.data);
+}
+
+function makeDataChartFriendly(data) {
+    let labels = [];
+    let dataValues = [];
+
+    $.each(data, (asset, innerData) => {
+        const prettyAssetName = (asset[0].toUpperCase() + asset.substr(1)).split(':').join(' - ');
+
+        labels.push(prettyAssetName);
+        dataValues.push(innerData.value);
+    });
+
+    return {
+        labels: labels,
+        data: dataValues
+    };
 }
 
 function sumKeyName(data, key) {
