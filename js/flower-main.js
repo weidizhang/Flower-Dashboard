@@ -4,6 +4,7 @@
 
 const arrowUp = '&#9650;';
 const arrowDown = '&#9660;';
+const mDash = '&mdash;';
 
 let timeBeforePriceUpdateDS = 0; // DS = Decisecond
 
@@ -50,7 +51,7 @@ function updatePrices() { // increase efficiency/merge redundant code from this?
             const priceDataPromise = getPriceData(priceObj);
             priceDataPromise.then((data) => {
                 const $assetTab = $('[data-asset="' + asset + '"]');
-                
+
                 $assetTab.find('.asset-value').text('$' + data.price);
 
                 let percentChange = parseFloat(data.percent);
@@ -82,7 +83,7 @@ function priceRefreshTicker() {
     }
 
     timeBeforePriceUpdateSecs = (timeBeforePriceUpdateDS / 10).toFixed(0);
-    $('.refresh-time').text(timeBeforePriceUpdateSecs  + 's');
+    $('.refresh-time').text(timeBeforePriceUpdateSecs + 's');
 
     const progressBarWidth = (timeBeforePriceUpdateDS / (settingsData.price_update_interval * 10)) * 100;
     $('.refresh-bar-inside').width(progressBarWidth + '%');
@@ -112,6 +113,28 @@ function flipToOverview() {
     setHeaderText('Overview');
 }
 
+function getTotalHoldingData() { // to-do: cost
+    let holdingData = {}
+
+    $.each(portfolioData, (asset, data) => {
+        holdingData[asset] = {
+            amt: 0,
+            cost: 0
+        };
+
+        $.each(data.transactions, (txData) => {
+            const txAmt = txData.amt;
+            if (txData.type == 'Sell') {
+                txAmt *= -1;
+            }
+
+            holdingData[asset].amt += txAmt;
+        });
+    });
+
+    return holdingData;
+}
+
 function flipToAsset(type, name) {
     const prettyType = type[0].toUpperCase() + type.substr(1);
     setHeaderText(prettyType + ': ' + name);
@@ -133,6 +156,7 @@ function loadTransactions(type, name) { // to-do: reload current tx's when price
 
     $.each(txData, (index, tx) => {
         const $newTx = $baseTx.clone();
+        const txIsBuy = tx.type == 'Buy';
 
         $newTx.removeAttr('id').addClass('asset-tx');
         $newTx.attr('data-txindex', index);
@@ -140,25 +164,28 @@ function loadTransactions(type, name) { // to-do: reload current tx's when price
         const formattedAmt = formatHoldingAmt(type, tx.amt);
 
         const cost = tx.amt * tx.cost_per;
+        const costSign = txIsBuy ? '' : '-';
+        const formattedCost = '$' + roundDollarValue(cost);
+
         const value = tx.amt * assetPrice;
         const profitLoss = value - cost;
 
         $newTx.find('.tx-type').text(tx.type);
         $newTx.find('.tx-amt').text(formattedAmt);
         $newTx.find('.tx-cps').text('$' + roundDollarValue(tx.cost_per));
-        $newTx.find('.tx-cost').text('$' + roundDollarValue(cost));
-        $newTx.find('.tx-value').text('$' + roundDollarValue(value));
-        $newTx.find('.tx-pl').text('$' + roundDollarValue(profitLoss) + ' (' + calcPercentPL(value, cost) + ')');
+        $newTx.find('.tx-cost').text(costSign + formattedCost);
+        $newTx.find('.tx-value').html(txIsBuy ? '$' + roundDollarValue(value) : mDash);
+        $newTx.find('.tx-pl').html(txIsBuy ? '$' + roundDollarValue(profitLoss) + ' (' + calcPercentPL(value, cost) + ')' : formattedCost);
 
         $('#table-total').before($newTx);
 
-        if (tx.type == 'Buy') {
-            totalAmt += tx.amt;
+        if (txIsBuy) {
             totalCost += cost;
+            totalAmt += tx.amt;
         }
-        else if (tx.type == 'Sell') {
-            totalAmt -= tx.amt;
+        else {
             totalCost -= cost;
+            totalAmt -= tx.amt;
         }
     });
 
@@ -171,8 +198,6 @@ function loadTransactions(type, name) { // to-do: reload current tx's when price
     $('#total-cost').text('$' + roundDollarValue(totalCost));
     $('#total-value').text('$' + roundDollarValue(totalValue));
     $('#avg-pl').text('$' + roundDollarValue(avgPL) + ' (' + calcPercentPL(totalValue, totalCost) + ')');
-
-    console.log(totalCost);
 }
 
 function calcPercentPL(value, cost) {
@@ -200,12 +225,12 @@ function setTvChartSymbol(symbol) {
     const newUrlSearch = '?symbol=' + newSymbol + chartUrl.search.substr(chartUrl.search.indexOf('&'));
 
     const newChartUrl = chartUrl.origin + chartUrl.pathname + newUrlSearch;
-    
+
     $('iframe').attr('src', newChartUrl);
 }
 
 function roundDollarValue(value) {
-    if (value < 1) {
+    if (value > 0 && value < 1) {
         return value.toFixed(4);
     }
     return value.toFixed(2);
