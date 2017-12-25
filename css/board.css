@@ -51,6 +51,6 @@ table th, table td {
     color: #ff3f3f;
 }
 
-#tx-template {
+#tx-template, .nav-pills, .tab-content {
     display: none;
 }

@@ -6,18 +6,41 @@ const arrowUp = '&#9650;';
 const arrowDown = '&#9660;';
 const mDash = '&mdash;';
 
-let timeBeforePriceUpdateDS = 0; // DS = Decisecond
+let holdingsChart;
 
+let timeBeforePriceUpdateDS = 0; // DS = Decisecond
 let assetPrices = {};
 
 $(document).ready(() => {
     loadPortfolioTabs();
+    createHoldingsChart();
 
     priceRefreshTicker();
     setInterval(priceRefreshTicker, 100);
 
     $('[data-asset]').click(assetTabClick);
 })
+
+function createHoldingsChart() {
+    const ctx = $('#holdings-chart')[0].getContext('2d');
+    data = {
+        datasets: [{
+            data: [10, 20, 30]
+        }],
+    
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: [
+            'Red',
+            'Yellow',
+            'Blue'
+        ]
+    };
+    holdingsChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: data,
+        options: {}
+    });
+}
 
 function loadPortfolioTabs() {
     $baseTab = $('[data-asset="dashboard:Total"]');
@@ -110,6 +133,10 @@ function assetTabClick() {
 }
 
 function flipToOverview() {
+    $('.nav-pills').hide();
+    $('.tab-content').hide();
+    $('#overview').show();
+
     setHeaderText('Overview');
 }
 
@@ -136,6 +163,11 @@ function getTotalHoldingData() { // to-do: cost
 }
 
 function flipToAsset(type, name) {
+    $('.nav-pills').show();
+    $('.tab-content').show();
+    $('#overview').hide();
+    adjustTabContentHeight();
+
     const prettyType = type[0].toUpperCase() + type.substr(1);
     setHeaderText(prettyType + ': ' + name);
 
