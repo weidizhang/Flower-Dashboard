@@ -51,6 +51,58 @@ table th, table td {
     color: #ff3f3f;
 }
 
-#tx-template, .nav-pills, .tab-content {
+#tx-template, .nav-pills, .tab-content, .wrapper {
     display: none;
+}
+
+#loading-screen {
+    background-color: #7386d5;
+    width: 100%;
+    height: 100%;
+
+    color: white;
+    text-align: center;
+}
+
+#loading-wrapper {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+#loading-header {
+    font-size: 32px;
+}
+
+#loading-caption {
+    font-size: 14px;
+}
+
+#loading-circle {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #65a0d8;
+    border-radius: 50%;
+
+    width: 80px;
+    height: 80px;
+
+    animation: spin 2s linear infinite;
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
