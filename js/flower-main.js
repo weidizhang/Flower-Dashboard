@@ -78,14 +78,13 @@ function onInitialLoadComplete() {
 
     $('#loading-screen').hide();
     $('.wrapper').show();
-    flipToOverview();
 }
 
 function updatePrices() {
     const numAssets = Object.keys(portfolioData).length;
     let completedPromises = 0;
 
-    if (numAssets == 0) {
+    if (initialLoad && numAssets == 0) {
         onInitialLoadComplete();
         return;
     }
@@ -125,12 +124,20 @@ function updatePrices() {
                 assetPrices[asset] = data.price;
 
                 completedPromises++;
-                if (initialLoad && completedPromises >= numAssets) {
-                    onInitialLoadComplete();
+                if (completedPromises >= numAssets) {
+                    if (initialLoad) {
+                        onInitialLoadComplete();
+                    }
+                    updateCurrentAsset();
                 }
             });
         }
     });
+}
+
+function updateCurrentAsset() {
+    const $tabElement = $('.list-unstyled .active').parent();
+    assetTabClick($tabElement);
 }
 
 function priceRefreshTicker() {
@@ -148,10 +155,14 @@ function priceRefreshTicker() {
     $('.refresh-bar-inside').width(progressBarWidth + '%');
 }
 
-function assetTabClick() {
-    setActiveTab($(this));
+function assetTabClick($tabElement) {
+    let $tab = $tabElement;
+    if ('type' in $tabElement) { // if $tabElement is a click event object
+        $tab = $(this);
+    }
 
-    const [assetType, assetName] = $(this).data('asset').split(':');
+    setActiveTab($tab);
+    const [assetType, assetName] = $tab.data('asset').split(':');
 
     switch (assetType) {
         case 'dashboard':
@@ -177,10 +188,13 @@ function flipToOverview() {
     const totalCost = sumKeyName(holdingData, 'cost');
     const totalValue = sumKeyName(holdingData, 'value');
 
-    setHeaderText('Overview - Cost: $' + roundDollarValue(totalCost) + ' - Value: $' + roundDollarValue(totalValue));
+    const formattedValue = '$' + roundDollarValue(totalValue);
+    setHeaderText('Overview - Cost: $' + roundDollarValue(totalCost) + ' - Value: ' + formattedValue);
 
     const chartData = makeDataChartFriendly(holdingData);
     updateHoldingsChart(chartData.labels, chartData.data, chartData.colors);
+
+    $('[data-asset="dashboard:Total"] .asset-value').text(formattedValue);
 }
 
 function makeDataChartFriendly(data) {
@@ -227,7 +241,7 @@ function sumKeyName(data, key) {
     return sum;
 }
 
-function getTotalHoldingData() { // to-do: cost
+function getTotalHoldingData() {
     let holdingData = {}
 
     $.each(portfolioData, (asset, data) => {
@@ -269,7 +283,7 @@ function flipToAsset(type, name) {
     loadTransactions(type, name);
 }
 
-function loadTransactions(type, name) { // to-do: reload current tx's when price updates.
+function loadTransactions(type, name) {
     const txData = portfolioData[type + ':' + name].transactions;
     const assetPrice = assetPrices[type + ':' + name];
     const $baseTx = $('#tx-template');
