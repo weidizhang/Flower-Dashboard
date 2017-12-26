@@ -33,10 +33,10 @@ function createHoldingsChart() {
     });
 }
 
-function updateHoldingsChart(labels, data) {
+function updateHoldingsChart(labels, data, colors) {
     holdingsChart.data.labels = labels;
     holdingsChart.data.datasets[0].data = data;
-
+    holdingsChart.data.datasets[0].backgroundColor = colors;
     holdingsChart.update();
 }
 
@@ -142,25 +142,43 @@ function flipToOverview() {
     setHeaderText('Overview - Cost: ' + totalCost + ' - Value: ' + totalValue);
 
     const chartData = makeDataChartFriendly(holdingData);
-    updateHoldingsChart(chartData.labels, chartData.data);
+    updateHoldingsChart(chartData.labels, chartData.data, chartData.colors);
 }
 
 function makeDataChartFriendly(data) {
     let labels = [];
     let dataValues = [];
+    let colors = [];
 
     $.each(data, (asset, innerData) => {
         const prettyAssetName = (asset[0].toUpperCase() + asset.substr(1)).split(':').join(' - ');
 
         labels.push(prettyAssetName);
         dataValues.push(innerData.value);
+
+        const seededColor = new SeededColor(asset);
+        const assetColor = rgbToHex(seededColor.red(), seededColor.green(), seededColor.blue());
+
+        colors.push(assetColor);
     });
 
     return {
         labels: labels,
-        data: dataValues
+        data: dataValues,
+        colors: colors
     };
 }
+
+/* Start: componentToHex and rgbToHex from Tim Down: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb */
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? '0' + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+/* End */
 
 function sumKeyName(data, key) {
     let sum = 0;
