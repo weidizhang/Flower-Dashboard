@@ -155,7 +155,7 @@ function flipToOverview() {
     const totalCost = sumKeyName(holdingData, 'cost');
     const totalValue = sumKeyName(holdingData, 'value');
 
-    setHeaderText('Overview - Cost: ' + totalCost + ' - Value: ' + totalValue);
+    setHeaderText('Overview - Cost: $' + roundDollarValue(totalCost) + ' - Value: $' + roundDollarValue(totalValue));
 
     const chartData = makeDataChartFriendly(holdingData);
     updateHoldingsChart(chartData.labels, chartData.data, chartData.colors);
