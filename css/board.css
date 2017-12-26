@@ -106,3 +106,13 @@ html, body {
         transform: rotate(360deg);
     }
 }
+
+#loading-hint {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+
+    font-size: 11px;
+
+    width: 100%;
+}
