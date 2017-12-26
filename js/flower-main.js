@@ -7,6 +7,7 @@ const arrowDown = '&#9660;';
 const mDash = '&mdash;';
 
 let holdingsChart;
+let initialLoad = true;
 
 let timeBeforePriceUpdateDS = 0; // DS = Decisecond
 let assetPrices = {};
@@ -72,7 +73,23 @@ function loadPortfolioTabs() {
     });
 }
 
-function updatePrices() { // increase efficiency/merge redundant code from this?
+function onInitialLoadComplete() {
+    initialLoad = false;
+
+    $('#loading-screen').hide();
+    $('.wrapper').show();
+    flipToOverview();
+}
+
+function updatePrices() {
+    const numAssets = Object.keys(portfolioData).length;
+    let completedPromises = 0;
+
+    if (numAssets == 0) {
+        onInitialLoadComplete();
+        return;
+    }
+
     $.each(portfolioData, (asset, data) => {
         const [assetType, assetName] = asset.split(':');
 
@@ -106,6 +123,11 @@ function updatePrices() { // increase efficiency/merge redundant code from this?
                 $assetTab.find('.asset-percentage').text(percentChange.toFixed(2) + '%');
 
                 assetPrices[asset] = data.price;
+
+                completedPromises++;
+                if (initialLoad && completedPromises >= numAssets) {
+                    onInitialLoadComplete();
+                }
             });
         }
     });
