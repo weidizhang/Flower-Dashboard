@@ -29,7 +29,23 @@ function createHoldingsChart() {
             datasets: [{ data: [] }],
             labels: []
         },
-        options: {}
+        options: {
+            tooltips: {
+                // Label callback adapted from Quince: https://stackoverflow.com/questions/37257034/chart-js-2-0-doughnut-tooltip-percentages
+                callbacks: {
+                    label: (tooltipItem, data) => {
+                        const dataset = data.datasets[tooltipItem.datasetIndex];
+                        const total = dataset.data.reduce((previousValue, currentValue, currentIndex, array) => {
+                            return previousValue + currentValue;
+                        });
+
+                        const currentValue = dataset.data[tooltipItem.index];
+                        const precentage = (currentValue / total) * 100;
+                        return ' $' + roundDollarValue(currentValue) + ' (' + precentage.toFixed(1) + '%)';
+                    }
+                }
+            }
+        }
     });
 }
 
