@@ -121,7 +121,10 @@ function updatePrices() {
                 $assetTab.find('.asset-change').removeClass('movement-up').removeClass('movement-down').addClass(movementClass);
                 $assetTab.find('.asset-percentage').text(percentChange.toFixed(2) + '%');
 
-                assetPrices[asset] = data.price;
+                assetPrices[asset] = {
+                    price: data.price,
+                    percent_change: percentChange
+                };
 
                 completedPromises++;
                 if (completedPromises >= numAssets) {
@@ -187,6 +190,7 @@ function flipToOverview() {
     const holdingData = getTotalHoldingData();
     const totalCost = sumKeyName(holdingData, 'cost');
     const totalValue = sumKeyName(holdingData, 'value');
+    const totalValue24hAgo = sumKeyName(holdingData, 'value_24h_ago');
 
     const formattedValue = '$' + roundDollarValue(totalValue);
     setHeaderText('Overview - Cost: $' + roundDollarValue(totalCost) + ' - Value: ' + formattedValue);
@@ -194,7 +198,21 @@ function flipToOverview() {
     const chartData = makeDataChartFriendly(holdingData);
     updateHoldingsChart(chartData.labels, chartData.data, chartData.colors);
 
-    $('[data-asset="dashboard:Total"] .asset-value').text(formattedValue);
+    let changeArrow = arrowUp;
+    let movementClass = 'movement-up';
+    let overallPL = calcPercentPL(totalValue24hAgo, totalValue);
+    const floatOverallPL = parseFloat(overallPL.substr(0, overallPL.length - 1));
+    if (floatOverallPL < 0) {
+        changeArrow = arrowDown;
+        movementClass = 'movement-down';
+        overallPL = overallPL.substr(1);
+    }
+
+    const $overviewAsset = $('[data-asset="dashboard:Total"]');
+    $overviewAsset.find('.asset-value').text(formattedValue);
+    $overviewAsset.find('.asset-percentage').text(overallPL);
+    $overviewAsset.find('.asset-arrow').html(changeArrow);
+    $overviewAsset.find('.asset-change').removeClass('movement-up').removeClass('movement-down').addClass(movementClass);
 }
 
 function makeDataChartFriendly(data) {
@@ -245,6 +263,9 @@ function getTotalHoldingData() {
     let holdingData = {}
 
     $.each(portfolioData, (asset, data) => {
+        const assetPrice = assetPrices[asset].price;
+        const assetChange = assetPrices[asset].percent_change;
+
         holdingData[asset] = {
             amt: 0,
             cost: 0
@@ -262,7 +283,10 @@ function getTotalHoldingData() {
             holdingData[asset].cost += txCost;
         });
 
-        holdingData[asset].value = holdingData[asset].amt * assetPrices[asset];
+        const price24hAgo = assetPrice / (1 + (assetChange / 100));
+
+        holdingData[asset].value = holdingData[asset].amt * assetPrice;
+        holdingData[asset].value_24h_ago = holdingData[asset].amt * price24hAgo;
     });
 
     return holdingData;
@@ -285,7 +309,7 @@ function flipToAsset(type, name) {
 
 function loadTransactions(type, name) {
     const txData = portfolioData[type + ':' + name].transactions;
-    const assetPrice = assetPrices[type + ':' + name];
+    const assetPrice = assetPrices[type + ':' + name].price;
     const $baseTx = $('#tx-template');
 
     $('.asset-tx').remove();
