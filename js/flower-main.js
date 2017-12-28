@@ -131,6 +131,7 @@ function updatePrices() {
                     if (initialLoad) {
                         onInitialLoadComplete();
                     }
+                    updateOverview();
                     updateCurrentAsset();
                 }
             });
@@ -186,7 +187,9 @@ function flipToOverview() {
     $('.nav-pills').hide();
     $('.tab-content').hide();
     $('#overview').show();
+}
 
+function updateOverview() {
     const holdingData = getTotalHoldingData();
     const totalCost = sumKeyName(holdingData, 'cost');
     const totalValue = sumKeyName(holdingData, 'value');
