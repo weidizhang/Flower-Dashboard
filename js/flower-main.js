@@ -20,7 +20,17 @@ $(document).ready(() => {
     setInterval(priceRefreshTicker, 100);
 
     $('[data-asset]').click(assetTabClick);
+    $('#settings').click(settingsClick);
+    $('#manage').click(manageClick);
 })
+
+function settingsClick() {
+    $('#settings-modal').modal('show');
+}
+
+function manageClick() {
+    $('#manage-modal').modal('show');
+}
 
 function createHoldingsChart() {
     const ctx = $('#holdings-chart')[0].getContext('2d');
