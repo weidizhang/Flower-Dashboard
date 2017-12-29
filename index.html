@@ -97,7 +97,7 @@
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav navbar-right">
-                                <a href="#" id="add-tx">
+                                <a href="#" id="add-item">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </a>
                                 <span class="icon-separator"></span>
@@ -202,8 +202,10 @@
                         <h4 class="modal-title" id="settings-label">Settings</h4>
                     </div>
                     <div class="modal-body">
-                        Price update interval (seconds):
-                        <input type="number" class="form-control" id="price-update-interval" value="60">
+                        <div class="form-group">
+                            <label for="price-update-interval">Price update interval (seconds):</label>
+                            <input type="number" class="form-control" id="price-update-interval" value="60">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -233,5 +235,45 @@
                 </div>
             </div>
         </div>
+
+        <!-- Add Asset Modal -->
+        <div class="modal fade" id="add-asset-modal" tabindex="2" role="dialog" aria-labelledby="add-asset-label">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="add-asset-label">Add New Asset</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="add-asset-type">Type:</label>
+                                <select class="form-control" id="add-asset-type">
+                                    <option value="cryptocurrency">Cryptocurrency</option>
+                                    <option value="stock">Stock</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-asset-name">Symbol:</label>
+                                <input type="text" class="form-control uppercase-display" id="add-asset-name" placeholder="BTC">
+                            </div>
+                            <div class="form-group" id="tv-symbol-form">
+                                <label for="add-asset-tv">TradingView Chart Symbol:</label>
+                                <input type="text" class="form-control uppercase-display" id="add-asset-tv" placeholder="COINBASE:BTCUSD">
+                            </div>
+                            <div class="form-group" id="cmc-name-form">
+                                <label for="add-asset-cmc">CoinMarketCap Name:</label>
+                                <input type="text" class="form-control" id="add-asset-cmc" placeholder="Bitcoin">
+                                <small class="form-text form-muted">Same as the asset's full name, e.g. Ethereum or Bitcoin Cash.</small>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="save-add-asset">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </body>
 </html>

@@ -22,9 +22,15 @@ $(document).ready(() => {
     loadSettings();
 
     $('[data-asset]').click(assetTabClick);
+
     $('#settings').click(settingsClick);
     $('#save-settings').click(saveSettingsClick);
+
     $('#manage').click(manageClick);
+
+    $('#add-item').click(addItemClick);
+    $('#save-add-asset').click(saveAssetClick);
+    $('#add-asset-type').change(onAssetTypeChange);
 
     priceRefreshTicker();
     setInterval(priceRefreshTicker, 100);
@@ -33,6 +39,25 @@ $(document).ready(() => {
 function loadSettings() {
     settingsData = dataStorage.getSettingsData();
     $('#price-update-interval').val(settingsData.price_update_interval);
+}
+
+function addItemClick() {
+    const currentAsset = getCurrentAsset();
+    if (currentAsset == 'dashboard:Total') {
+        $('#add-asset-modal').modal('show');
+    }
+    else {
+        //to-do
+    }
+}
+
+function saveAssetClick() {
+    
+}
+
+function onAssetTypeChange() {
+    $('#tv-symbol-form').toggle();
+    $('#cmc-name-form').toggle();
 }
 
 function settingsClick() {
@@ -169,6 +194,10 @@ function updatePrices() {
 function updateCurrentAsset() {
     const $tabElement = $('.list-unstyled .active').parent();
     assetTabClick($tabElement);
+}
+
+function getCurrentAsset() {
+    return $('.list-unstyled .active').parent().data('asset');
 }
 
 function priceRefreshTicker() {
