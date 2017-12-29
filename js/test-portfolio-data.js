@@ -42,6 +42,8 @@ const portfolioData = {
     }
 };
 
+/*
 const settingsData = {
     price_update_interval: 60
 }
+*/

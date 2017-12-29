@@ -6,7 +6,10 @@ const arrowUp = '&#9650;';
 const arrowDown = '&#9660;';
 const mDash = '&mdash;';
 
+const dataStorage = new LocalStorage();
+
 let holdingsChart;
+let settingsData;
 let initialLoad = true;
 
 let timeBeforePriceUpdateDS = 0; // DS = Decisecond
@@ -16,16 +19,30 @@ $(document).ready(() => {
     loadPortfolioTabs();
     createHoldingsChart();
 
-    priceRefreshTicker();
-    setInterval(priceRefreshTicker, 100);
+    loadSettings();
 
     $('[data-asset]').click(assetTabClick);
     $('#settings').click(settingsClick);
+    $('#save-settings').click(saveSettingsClick);
     $('#manage').click(manageClick);
+
+    priceRefreshTicker();
+    setInterval(priceRefreshTicker, 100);
 })
+
+function loadSettings() {
+    settingsData = dataStorage.getSettingsData();
+    $('#price-update-interval').val(settingsData.price_update_interval);
+}
 
 function settingsClick() {
     $('#settings-modal').modal('show');
+}
+
+function saveSettingsClick() {
+    settingsData.price_update_interval = parseInt($('#price-update-interval').val());
+    dataStorage.setSettingsData(settingsData);
+    $('#settings-modal').modal('hide');
 }
 
 function manageClick() {
