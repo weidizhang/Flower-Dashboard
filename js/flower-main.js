@@ -191,12 +191,12 @@ function flipToOverview() {
 
 function updateOverview() {
     const holdingData = getTotalHoldingData();
-    const totalCost = sumKeyName(holdingData, 'cost');
+    const totalCost = sumKeyName(holdingData, 'cost'); // unused
     const totalValue = sumKeyName(holdingData, 'value');
     const totalValue24hAgo = sumKeyName(holdingData, 'value_24h_ago');
 
     const formattedValue = '$' + roundDollarValue(totalValue);
-    setHeaderText('Overview - Cost: $' + roundDollarValue(totalCost) + ' - Value: ' + formattedValue);
+    setHeaderText('Overview - Total Portfolio Value: ' + formattedValue);
 
     const chartData = makeDataChartFriendly(holdingData);
     updateHoldingsChart(chartData.labels, chartData.data, chartData.colors);
