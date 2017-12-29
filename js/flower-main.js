@@ -230,7 +230,7 @@ function updateOverview() {
 
     let changeArrow = arrowUp;
     let movementClass = 'movement-up';
-    let overallPL = calcPercentPL(totalValue24hAgo, totalValue);
+    let overallPL = calcPercentPL(totalValue, totalValue24hAgo);
     const floatOverallPL = parseFloat(overallPL.substr(0, overallPL.length - 1));
     if (floatOverallPL < 0) {
         changeArrow = arrowDown;
