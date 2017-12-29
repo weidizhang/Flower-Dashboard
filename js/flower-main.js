@@ -9,17 +9,18 @@ const mDash = '&mdash;';
 const dataStorage = new LocalStorage();
 
 let holdingsChart;
-let settingsData;
+let portfolioData, settingsData;
 let initialLoad = true;
 
 let timeBeforePriceUpdateDS = 0; // DS = Decisecond
 let assetPrices = {};
 
 $(document).ready(() => {
+    loadPortfolio();
+    loadSettings();
+
     loadPortfolioTabs();
     createHoldingsChart();
-
-    loadSettings();
 
     $('[data-asset]').click(assetTabClick);
 
@@ -35,6 +36,10 @@ $(document).ready(() => {
     priceRefreshTicker();
     setInterval(priceRefreshTicker, 100);
 })
+
+function loadPortfolio() {
+    portfolioData = dataStorage.getPortfolioData();
+}
 
 function loadSettings() {
     settingsData = dataStorage.getSettingsData();
@@ -52,7 +57,28 @@ function addItemClick() {
 }
 
 function saveAssetClick() {
-    
+    const type = $('#add-asset-type').val();
+    const name = $('#add-asset-name').val().toUpperCase();
+
+    let tvChartSymbol = name;
+    let cmcName;
+    if (type == 'cryptocurrency') {
+        tvChartSymbol = $('#tv-symbol-form').val().toUpperCase();
+        cmcName = $('#add-asset-cmc').val().toLowerCase().replace(' ', '-');
+    }
+
+    const assetKey = type + ':' + name;
+    portfolioData[assetKey] = {
+        tv_chart: tvChartSymbol,
+        transactions: []
+    };
+
+    if (cmcName !== undefined) {
+        portfolioData[assetKey].cmc_name = cmcName;
+    }
+
+    dataStorage.setPortfolioData(portfolioData);
+    // reload portfolio tabs here
 }
 
 function onAssetTypeChange() {

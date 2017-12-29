@@ -2,6 +2,7 @@
  * @author Weidi Zhang
  */
 
+/*
 const portfolioData = {
     'cryptocurrency:ETH': {
         tv_chart: 'COINBASE:ETHUSD',
@@ -42,7 +43,6 @@ const portfolioData = {
     }
 };
 
-/*
 const settingsData = {
     price_update_interval: 60
 }
