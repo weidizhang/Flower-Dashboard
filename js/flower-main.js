@@ -214,6 +214,9 @@ function flipToOverview() {
     $('.nav-pills').hide();
     $('.tab-content').hide();
     $('#overview').show();
+
+    const formattedValue = $('[data-asset="dashboard:Total"] .asset-value').text();
+    setHeaderText('Overview - Total Portfolio Value: ' + formattedValue);
 }
 
 function updateOverview() {
@@ -223,7 +226,6 @@ function updateOverview() {
     const totalValue24hAgo = sumKeyName(holdingData, 'value_24h_ago');
 
     const formattedValue = '$' + roundDollarValue(totalValue);
-    setHeaderText('Overview - Total Portfolio Value: ' + formattedValue);
 
     const chartData = makeDataChartFriendly(holdingData);
     updateHoldingsChart(chartData.labels, chartData.data, chartData.colors);
