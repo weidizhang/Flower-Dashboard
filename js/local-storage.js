@@ -16,7 +16,12 @@ class LocalStorage {
     }
 
     getPortfolioData() {
-        return this.getObject('portfolioData');
+        const data = this.getObject('portfolioData');
+        if (data === null) {
+            return {};
+        }
+
+        return data;
     }
 
     setSettingsData(data) {
@@ -24,6 +29,15 @@ class LocalStorage {
     }
 
     getSettingsData() {
-        return this.getObject('settingsData');
+        const data = this.getObject('settingsData');
+        if (data === null) {
+            const defaultData = {
+                price_update_interval: 60
+            };
+            this.setSettingsData(defaultData);
+            return defaultData;
+        }
+
+        return data;
     }
 }
