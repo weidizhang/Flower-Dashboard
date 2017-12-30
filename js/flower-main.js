@@ -44,17 +44,6 @@ function loadPortfolio() {
         $('#welcome').show();
         $('#holdings-chart').hide();
     }
-
-    const cryptoEmpty = $('#cryptocurrency').html() == '';
-    const stocksEmpty = $('#stock').html() == '';
-
-    if (cryptoEmpty) {
-        $('#crypto-placeholder').show();
-    }
-
-    if (stocksEmpty) {
-        $('#stock-placeholder').show();
-    }
 }
 
 function loadSettings() {
@@ -161,10 +150,18 @@ function updateHoldingsChart(labels, data, colors) {
 }
 
 function loadPortfolioTabs() {
-    $baseTab = $('[data-asset="dashboard:Total"]');
+    const $baseTab = $('[data-asset="dashboard:Total"]');
+    let cryptoEmpty = stocksEmpty = true;
 
     $.each(portfolioData, (asset, data) => {
         const [assetType, assetName] = asset.split(':');
+
+        if (assetType == 'cryptocurrency') {
+            cryptoEmpty = false;
+        }
+        else if (assetType == 'stock') {
+            stocksEmpty = false;
+        }
 
         $newTab = $baseTab.clone();
 
@@ -174,6 +171,14 @@ function loadPortfolioTabs() {
 
         $('#' + assetType).append($newTab);
     });
+
+    if (cryptoEmpty) {
+        $('#crypto-placeholder').show();
+    }
+
+    if (stocksEmpty) {
+        $('#stock-placeholder').show();
+    }
 }
 
 function onInitialLoadComplete() {
