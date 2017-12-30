@@ -120,3 +120,12 @@ html, body {
 .uppercase-display {
     text-transform: uppercase;
 }
+
+#welcome, #crypto-placeholder, #stock-placeholder {
+    display: none;
+    text-align: center;
+}
+
+#welcome-title {
+    font-size: 28px;
+}

@@ -39,6 +39,22 @@ $(document).ready(() => {
 
 function loadPortfolio() {
     portfolioData = dataStorage.getPortfolioData();
+
+    if (Object.keys(portfolioData).length <= 0) {
+        $('#welcome').show();
+        $('#holdings-chart').hide();
+    }
+
+    const cryptoEmpty = $('#cryptocurrency').html() == '';
+    const stocksEmpty = $('#stock').html() == '';
+
+    if (cryptoEmpty) {
+        $('#crypto-placeholder').show();
+    }
+
+    if (stocksEmpty) {
+        $('#stock-placeholder').show();
+    }
 }
 
 function loadSettings() {
