@@ -1,6 +1,7 @@
 const electron = require('electron');
 
 const app = electron.app;
+app.setName('Flower Dashboard');
 
 // Adds debug features like hotkeys for triggering dev tools and reload
 require('electron-debug')();

@@ -76,10 +76,12 @@ function saveAssetClick() {
     const type = $('#add-asset-type').val();
     const name = $('#add-asset-name').val().toUpperCase();
 
+    const isCryptocurrency = type == 'cryptocurrency';
+
     let tvChartSymbol = name;
     let cmcName;
-    if (type == 'cryptocurrency') {
-        tvChartSymbol = $('#tv-symbol-form').val().toUpperCase();
+    if (isCryptocurrency) {
+        tvChartSymbol = $('#add-asset-tv').val().toUpperCase();
         cmcName = $('#add-asset-cmc').val().toLowerCase().replace(' ', '-');
     }
 
@@ -89,12 +91,19 @@ function saveAssetClick() {
         transactions: []
     };
 
-    if (cmcName !== undefined) {
+    if (isCryptocurrency && cmcName !== undefined) {
         portfolioData[assetKey].cmc_name = cmcName;
     }
 
-    dataStorage.setPortfolioData(portfolioData);
-    // reload portfolio tabs here
+    const isValidCryptocurrency = isCryptocurrency && tvChartSymbol && cmcName;
+    if (type && name && (isValidCryptocurrency || !isCryptocurrency)) {
+        dataStorage.setPortfolioData(portfolioData);
+        alert('Success: The asset has been added.');
+        location.reload();
+    }
+    else {
+        alert('Error: The form was not completed correctly.');
+    }
 }
 
 function onAssetTypeChange() {
