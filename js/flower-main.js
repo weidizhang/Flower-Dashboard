@@ -22,6 +22,8 @@ $(document).ready(() => {
     loadPortfolioTabs();
     createHoldingsChart();
 
+    attachTxDatePicker();
+
     $('[data-asset]').click(assetTabClick);
 
     $('#settings').click(settingsClick);
@@ -51,13 +53,21 @@ function loadSettings() {
     $('#price-update-interval').val(settingsData.price_update_interval);
 }
 
+function attachTxDatePicker() {
+    $('#add-tx-date').datepicker({
+        autoclose: true,
+        format: 'mm/dd/yyyy',
+        todayHighlight: true
+    });
+}
+
 function addItemClick() {
     const currentAsset = getCurrentAsset();
     if (currentAsset == 'dashboard:Total') {
         $('#add-asset-modal').modal('show');
     }
     else {
-        //to-do
+        $('#add-tx-modal').modal('show');
     }
 }
 
