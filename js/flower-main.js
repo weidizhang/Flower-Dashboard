@@ -39,7 +39,7 @@ $(document).ready(() => {
 
     priceRefreshTicker();
     setInterval(priceRefreshTicker, 100);
-})
+});
 
 function loadPortfolio() {
     portfolioData = dataStorage.getPortfolioData();
