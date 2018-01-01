@@ -35,6 +35,8 @@ $(document).ready(() => {
     $('#save-add-asset').click(saveAssetClick);
     $('#add-asset-type').change(onAssetTypeChange);
 
+    $('#save-add-tx').click(saveTxClick);
+
     priceRefreshTicker();
     setInterval(priceRefreshTicker, 100);
 })
@@ -103,6 +105,62 @@ function saveAssetClick() {
     else {
         alert('Error: The form was not completed correctly.');
     }
+}
+
+function saveTxClick() {
+    const date = $('#add-tx-date').val();
+    const type = $('#add-tx-type').val();
+    const amt = parseFloat($('#add-tx-amt').val());
+    const cost_per = parseFloat($('#add-tx-cps').val());
+
+    const isValidType = type == 'Buy' || type == 'Sell';
+    if (isValidDate(date) && isValidType && isValidNumber(amt) && isValidNumber(cost_per)) {
+        const currentAsset = getCurrentAsset();
+        portfolioData[currentAsset].transactions.push({
+            date: date,
+            type: type,
+            amt: amt,
+            cost_per: cost_per
+        });
+
+        portfolioData[currentAsset].transactions.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date);
+        });
+
+        dataStorage.setPortfolioData(portfolioData);
+
+        alert('Success: The transaction has been added.');
+        updateCurrentAsset();
+
+        $('#add-tx-date').val('');
+        $('#add-tx-type').val('Buy');
+        $('#add-tx-amt').val('');
+        $('#add-tx-cps').val('');
+        $('#add-tx-modal').modal('hide');
+    }
+    else {
+        alert('Error: The form was not completed correctly.');
+    }
+}
+
+function isValidDate(date) {
+    const dateParts = date.split('/');
+    if (dateParts.length == 3) {
+        const month = parseInt(dateParts[0]);
+        const day = parseInt(dateParts[1]);
+        const year = parseInt(dateParts[2]);
+
+        return isInClosedInterval(month, 1, 12) && isInClosedInterval(day, 1, 31) && isValidNumber(year);
+    }
+    return false;
+}
+
+function isInClosedInterval(number, min, max) {
+    return number >= min && number <= max;
+}
+
+function isValidNumber(number) {
+    return typeof(number) === 'number' && !isNaN(number);
 }
 
 function onAssetTypeChange() {
@@ -459,6 +517,7 @@ function loadTransactions(type, name) {
         const value = tx.amt * assetPrice;
         const profitLoss = value - cost;
 
+        $newTx.find('.tx-date').text(tx.date);
         $newTx.find('.tx-type').text(tx.type);
         $newTx.find('.tx-amt').text(formattedAmt);
         $newTx.find('.tx-cps').text('$' + roundDollarValue(tx.cost_per));
