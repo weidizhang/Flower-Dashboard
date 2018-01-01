@@ -563,6 +563,10 @@ function loadTransactions(type, name) {
 }
 
 function calcPercentPL(value, cost) {
+    if (cost < 0 && value > 0) {
+        return 'Infinity%';
+    }
+
     const pl = ((value - cost) / cost) * 100;
     return pl.toFixed(2) + '%';
 }
