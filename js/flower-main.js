@@ -36,6 +36,7 @@ $(document).ready(() => {
     $('#add-asset-type').change(onAssetTypeChange);
 
     $('#save-add-tx').click(saveTxClick);
+    $(document).on('click', '.remove-tx', removeTxClick);
 
     priceRefreshTicker();
     setInterval(priceRefreshTicker, 100);
@@ -53,6 +54,19 @@ function loadPortfolio() {
 function loadSettings() {
     settingsData = dataStorage.getSettingsData();
     $('#price-update-interval').val(settingsData.price_update_interval);
+}
+
+function removeTxClick() {
+    const txIndex = $(this).parents().eq(2).data('txindex');
+    const shouldRemove = confirm('Are you sure you want to delete this transaction?');
+
+    if (shouldRemove) {
+        const currentAsset = getCurrentAsset();
+        portfolioData[currentAsset].transactions.splice(txIndex, 1);
+
+        dataStorage.setPortfolioData(portfolioData);
+        updateCurrentAsset();
+    }
 }
 
 function attachTxDatePicker() {
