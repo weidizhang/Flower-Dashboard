@@ -15,7 +15,7 @@ and monitoring cryptocurrency and stock investments or trades.
 
 * Visualize entire portfolio using doughnut chart
 * Supports stocks
-* Stocks cryptocurrencies
+* Supports cryptocurrencies
 * Add transactions by date
 * View costs, values, and profits or losses
 * View candlestick charts right from the application
