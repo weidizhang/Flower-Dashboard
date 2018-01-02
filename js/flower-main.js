@@ -2,6 +2,8 @@
  * @author Weidi Zhang
  */
 
+const flowerVersion = '1.0';
+
 const arrowUp = '&#9650;';
 const arrowDown = '&#9660;';
 const mDash = '&mdash;';
@@ -16,6 +18,8 @@ let timeBeforePriceUpdateDS = 0; // DS = Decisecond
 let assetPrices = {};
 
 $(document).ready(() => {
+    $('#flower-version').text(flowerVersion);
+
     loadPortfolio();
     loadSettings();
 
