@@ -83,6 +83,7 @@ function removeTxClick() {
 
         dataStorage.setPortfolioData(portfolioData);
         updateCurrentAsset();
+        updateOverview();
     }
 }
 
@@ -191,6 +192,7 @@ function saveTxClick() {
 
         alert('Success: The transaction has been added.');
         updateCurrentAsset();
+        updateOverview();
 
         $('#add-tx-date').val('');
         $('#add-tx-type').val('Buy');
