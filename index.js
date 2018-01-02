@@ -1,5 +1,7 @@
 const electron = require('electron');
 
+const devMode = false;
+
 const app = electron.app;
 app.setName('Flower Dashboard');
 
@@ -16,10 +18,20 @@ function onClosed() {
 }
 
 function createMainWindow() {
-    const win = new electron.BrowserWindow({
+    browserOptions = {
         width: 1280,
         height: 720
-    });
+    };
+    if (!devMode) {
+        browserOptions.webPreferences = {
+            devTools: false
+        };
+    }
+
+    const win = new electron.BrowserWindow(browserOptions);
+    if (!devMode) {
+        win.setMenu(null);
+    }
 
     win.loadURL(`file://${__dirname}/index.html`);
     win.on('closed', onClosed);
