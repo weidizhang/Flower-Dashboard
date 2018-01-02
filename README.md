@@ -36,7 +36,7 @@ and monitoring cryptocurrency and stock investments or trades.
 
 * [Overview Screen](doc/images/screenshot-overview.png)
 * [Transactions Screen](doc/images/screenshot-tx.png)
-* [Chart Screen](screenshot-chart.png)
+* [Chart Screen](doc/images/screenshot-chart.png)
 
 ## Libraries or Resources Used
 
