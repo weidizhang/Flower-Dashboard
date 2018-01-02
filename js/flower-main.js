@@ -193,7 +193,20 @@ function saveSettingsClick() {
 }
 
 function manageClick() {
-    $('#manage-modal').modal('show');
+    const currentAsset = getCurrentAsset();
+
+    if (currentAsset == 'dashboard:Total') {
+        $('#manage-portfolio-modal').modal('show');
+    }
+    else {
+        const assetName = currentAsset.split(':')[1];
+        const tvChart = portfolioData[currentAsset].tv_chart;
+
+        $('#manage-asset-name').text(assetName);
+        $('#manage-asset-tv').val(tvChart);
+
+        $('#manage-asset-modal').modal('show');
+    }
 }
 
 function createHoldingsChart() {

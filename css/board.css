@@ -129,3 +129,11 @@ html, body {
 #welcome-title {
     font-size: 28px;
 }
+
+#manage-portfolio-actions {
+    text-align: center;
+}
+
+#actions-text {
+    font-weight: bold;
+}

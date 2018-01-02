@@ -241,29 +241,59 @@
             </div>
         </div>
 
-        <!-- Manage Modal -->
-        <div class="modal fade" id="manage-modal" tabindex="1" role="dialog" aria-labelledby="manage-label">
+        <!-- Manage Asset Modal -->
+        <div class="modal fade" id="manage-asset-modal" tabindex="1" role="dialog" aria-labelledby="manage-asset-label">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title" id="manage-label">Manage asset-name-here</h4>
+                        <h4 class="modal-title" id="manage-asset-label">Manage <span id="manage-asset-name"></span></h4>
                     </div>
                     <div class="modal-body">
-                        ...abc
+                        <div class="form-group">
+                            <label for="manage-asset-tv">TradingView Chart Symbol:</label>
+                            <input type="text" class="form-control uppercase-display" id="manage-asset-tv">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="pull-left">
+                            <button type="button" class="btn btn-danger" id="delete-asset">Delete Asset</button>
+                        </div>
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="save-manage-asset">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Portfolio Modal -->
+        <div class="modal fade" id="manage-portfolio-modal" tabindex="2" role="dialog" aria-labelledby="manage-portfolio-label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="manage-portfolio-label">Manage Portfolio</span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="manage-portfolio-actions">
+                            <div id="actions-text">Actions:</div>
+                            <button type="button" class="btn btn-danger" id="reset-portfolio">Reset Portfolio</button>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="save-manage">Save Changes</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Add Asset Modal -->
-        <div class="modal fade" id="add-asset-modal" tabindex="2" role="dialog" aria-labelledby="add-asset-label">
+        <div class="modal fade" id="add-asset-modal" tabindex="3" role="dialog" aria-labelledby="add-asset-label">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -303,7 +333,7 @@
         </div>
 
         <!-- Add Transaction Modal -->
-        <div class="modal fade" id="add-tx-modal" tabindex="3" role="dialog" aria-labelledby="add-tx-label">
+        <div class="modal fade" id="add-tx-modal" tabindex="4" role="dialog" aria-labelledby="add-tx-label">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
