@@ -373,7 +373,7 @@ function updatePrices() {
                 $assetTab.find('.asset-percentage').text(percentChange.toFixed(2) + '%');
 
                 assetPrices[asset] = {
-                    price: data.price,
+                    price: data.price.replace(',', ''),
                     percent_change: percentChange
                 };
 
