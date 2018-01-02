@@ -40,4 +40,9 @@ class LocalStorage {
 
         return data;
     }
+
+    resetData() {
+        localStorage.removeItem('portfolioData');
+        localStorage.removeItem('settingsData');
+    }
 }

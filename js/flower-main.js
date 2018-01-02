@@ -32,6 +32,7 @@ $(document).ready(() => {
     $('#manage').click(manageClick);
     $('#delete-asset').click(deleteAssetClick);
     $('#save-manage-asset').click(manageAssetClick);
+    $('#reset-portfolio').click(resetPortfolioClick);
 
     $('#add-item').click(addItemClick);
     $('#save-add-asset').click(saveAssetClick);
@@ -56,6 +57,16 @@ function loadPortfolio() {
 function loadSettings() {
     settingsData = dataStorage.getSettingsData();
     $('#price-update-interval').val(settingsData.price_update_interval);
+}
+
+function resetPortfolioClick() {
+    const shouldReset = confirm('Are you sure you want to reset your portfolio?\nAll asset and transaction data will be permanently lost.');
+    if (shouldReset) {
+        dataStorage.resetData();
+
+        alert('Success: Your portfolio has been reset.');
+        location.reload();
+    }
 }
 
 function removeTxClick() {
