@@ -28,6 +28,16 @@ and monitoring cryptocurrency and stock investments or trades.
 * __Feature__: Import and export portfolio data
 * __Enhancement__: Scrollable sidebar so that window doesn't have to be resized to fit all assets
 
+## Building Binaries
+
+* [electron-packager](https://github.com/electron-userland/electron-packager)
+
+## Screenshots
+
+* [Overview Screen](doc/images/screenshot-overview.png)
+* [Transactions Screen](doc/images/screenshot-tx.png)
+* [Chart Screen](screenshot-chart.png)
+
 ## Libraries or Resources Used
 
 * [Bootstrap](https://getbootstrap.com/)
