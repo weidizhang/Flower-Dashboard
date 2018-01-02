@@ -543,7 +543,7 @@ function getTotalHoldingData() {
             holdingData[asset].cost += txCost;
         });
 
-        const price24hAgo = assetPrice / (1 + (assetChange / 100));
+        const price24hAgo = assetPrice / (1 - (assetChange / 100));
 
         holdingData[asset].value = holdingData[asset].amt * assetPrice;
         holdingData[asset].value_24h_ago = holdingData[asset].amt * price24hAgo;
