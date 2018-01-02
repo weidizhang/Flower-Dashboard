@@ -30,6 +30,8 @@ $(document).ready(() => {
     $('#save-settings').click(saveSettingsClick);
 
     $('#manage').click(manageClick);
+    $('#delete-asset').click(deleteAssetClick);
+    $('#save-manage-asset').click(manageAssetClick);
 
     $('#add-item').click(addItemClick);
     $('#save-add-asset').click(saveAssetClick);
@@ -66,6 +68,35 @@ function removeTxClick() {
 
         dataStorage.setPortfolioData(portfolioData);
         updateCurrentAsset();
+    }
+}
+
+function manageAssetClick() {
+    const newTvChart = $('#manage-asset-tv').val().toUpperCase();
+    if (newTvChart != '') {
+        const currentAsset = getCurrentAsset();
+        portfolioData[currentAsset].tv_chart = newTvChart;
+        dataStorage.setPortfolioData(portfolioData);
+
+        alert('Success: The TradingView chart symbol has been updated.');
+        updateCurrentAsset();
+
+        $('#manage-asset-modal').modal('hide');
+    }
+    else {
+        alert('Error: The form was not completed correctly.');
+    }
+}
+
+function deleteAssetClick() {
+    const shouldDelete = confirm('Are you sure you want to delete this asset?\nAll associated transaction data will also be permanently lost.');
+    if (shouldDelete) {
+        const currentAsset = getCurrentAsset();
+        delete portfolioData[currentAsset];
+        dataStorage.setPortfolioData(portfolioData);
+
+        alert('Success: The asset has been removed.');
+        location.reload();
     }
 }
 
