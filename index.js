@@ -20,7 +20,8 @@ function onClosed() {
 function createMainWindow() {
     browserOptions = {
         width: 1280,
-        height: 720
+        height: 720,
+        icon: __dirname + '/icon.png'
     };
     if (!devMode) {
         browserOptions.webPreferences = {

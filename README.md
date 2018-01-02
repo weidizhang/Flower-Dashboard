@@ -34,3 +34,4 @@ and monitoring cryptocurrency and stock investments or trades.
 * [bootstrap-datepicker](https://uxsolutions.github.io/bootstrap-datepicker/)
 * [ChartJS](http://www.chartjs.org/)
 * [jQuery](https://jquery.com/)
+* [Icon made by Freepik](https://www.flaticon.com/free-icon/growth_189081)
