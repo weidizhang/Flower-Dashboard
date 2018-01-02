@@ -7,6 +7,10 @@ Created by Weidi Zhang
 Flower Dashboard is a multi-platform (Windows, OS X, Linux) Electron application for tracking
 and monitoring cryptocurrency and stock investments or trades.
 
+## Downloads
+
+[Releases](https://github.com/weidizhang/Flower-Dashboard/releases)
+
 ## Features
 
 * Visualize entire portfolio using doughnut chart
@@ -19,6 +23,10 @@ and monitoring cryptocurrency and stock investments or trades.
 ## Limitations
 
 * Only US Dollar is supported as fiat currency
+
+## Planned Future Changes
+* __Feature__: Import and export portfolio data
+* __Enhancement__: Scrollable sidebar so that window doesn't have to be resized to fit all assets
 
 ## Libraries or Resources Used
 
